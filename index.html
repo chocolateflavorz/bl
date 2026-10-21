@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Polygon Draw</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 18 6 5l13 3-2 12z' fill='%232563eb' fill-opacity='.15' stroke='%231d4ed8' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <div class="panel">
+      <button id="draw" class="btn primary" type="button" aria-pressed="false">
+        <span class="dot"></span> Polygon
+      </button>
+      <button id="draw-line" class="btn primary" type="button" aria-pressed="false">
+        <span class="dot"></span> Polyline
+      </button>
+      <button id="draw-point" class="btn primary" type="button" aria-pressed="false">
+        <span class="dot"></span> Point
+      </button>
+      <button id="select" class="btn primary" type="button" aria-pressed="false">
+        <span class="cursor-icon"></span> Select
+      </button>
+      <button id="clear" class="btn" type="button">Clear</button>
+      <span id="count" class="count">0</span>
+    </div>
+
+    <p id="hint-draw" class="hint" hidden>
+      Click to place points · double-click or <kbd>Enter</kbd> to finish ·
+      <kbd>Esc</kbd> to cancel
+    </p>
+
+    <p id="hint-line" class="hint" hidden>
+      Click to place vertices · double-click or <kbd>Enter</kbd> to finish ·
+      <kbd>Esc</kbd> to cancel
+    </p>
+
+    <p id="hint-point" class="hint" hidden>
+      Click to place a point
+    </p>
+
+    <p id="hint-select" class="hint" hidden>
+      Click to select · <code>important: true</code> wins · otherwise point,
+      line, then smallest polygon · <kbd>Delete</kbd> to remove ·
+      <kbd>Esc</kbd> to deselect
+    </p>
+
+    <div id="out" class="out" hidden>
+      <div class="out-head">
+        <span>GeoJSON</span>
+        <button id="copy" class="link" type="button">copy</button>
+      </div>
+      <pre id="json"></pre>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
