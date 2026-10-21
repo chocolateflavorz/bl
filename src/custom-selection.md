@@ -49,6 +49,7 @@ import {
   TerraDrawSelectMode,
 } from "terra-draw";
 import { TerraDrawMapLibreGLAdapter } from "terra-draw-maplibre-gl-adapter";
+import { area } from "@turf/area";
 
 const LAYERS = [
   "td-polygon",
@@ -136,20 +137,7 @@ function compareFeatures(a, b) {
   if (aRank !== bRank) return aRank - bRank;
 
   // 3. smaller polygon wins
-  return polygonArea(a) - polygonArea(b);
-}
-
-function polygonArea(feature) {
-  if (feature.geometry.type !== "Polygon") return 0;
-
-  const ring = feature.geometry.coordinates[0];
-  let sum = 0;
-
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    sum += ring[j][0] * ring[i][1] - ring[i][0] * ring[j][1];
-  }
-
-  return Math.abs(sum);
+  return area(a) - area(b);
 }
 ```
 
@@ -202,8 +190,8 @@ and so select-mode flags apply:
 - `important` is matched strictly as a boolean: `properties.important === true`.
 - To prefer the **largest** polygon instead, reverse the area comparison:
   `return bArea - aArea;`.
-- The sample uses planar shoelace area for ranking. The full demo uses
-  geodesic area with holes subtracted.
+- Area comes from `@turf/area`: geodesic area in square metres, with holes
+  subtracted. Install it with `npm install @turf/area`.
 - `queryRenderedFeatures` only sees rendered features. If polygon fill opacity
   is `0`, the fill layer may not be hit-testable; query the outline layer or
   use geometry-based hit-testing instead.
